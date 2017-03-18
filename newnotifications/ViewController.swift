@@ -34,13 +34,28 @@ class ViewController: UIViewController {
             })
     }
     
+    func a(inSecond: TimeInterval, compeletion: (_ success: Bool) -> ()) {
+        print("HI")
+    }
+    
     func scheduleNotification(inSecond: TimeInterval, compeletion: @escaping (_ Success: Bool) -> ()) {
         
+        let myImage = "play"
+        guard let imageUrl = Bundle.main.url(forResource: myImage, withExtension: "png") else {
+            compeletion(false)
+            return
+        }
+        
+        var attchmetn : UNNotificationAttachment
+        
+        attchmetn = try! UNNotificationAttachment(identifier: "my notification", url: imageUrl, options: .none)
         
         let notif = UNMutableNotificationContent()
         notif.title = "New Notification"
         notif.subtitle = "There are great!"
         notif.body = "The new notification in iOS 10 is what I always dreamed"
+        notif.attachments = [attchmetn]
+        
         
         let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSecond, repeats: false)
         
