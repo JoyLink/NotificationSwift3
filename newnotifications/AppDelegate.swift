@@ -49,7 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     private func configUserNotification() {
-        let category = UNNotificationCategory(identifier: "myNotificationCategory", actions: [], intentIdentifiers: [], options: [])
+        let favAction = UNNotificationAction(identifier: "firstBump", title: "👊 first bump", options: [])
+        let dissmissAction =  UNNotificationAction(identifier: "dissmiss", title: "dissmiss", options: [])
+        
+        
+        
+        let category = UNNotificationCategory(identifier: "myNotificationCategory", actions: [favAction, dissmissAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
 
@@ -60,6 +65,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(.alert)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print ("response received for \(response.actionIdentifier)")
+        completionHandler()
     }
 }
 
