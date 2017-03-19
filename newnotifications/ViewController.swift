@@ -17,7 +17,7 @@ class ViewController: UIViewController {
             if granted {
                 print("Notification access granted")
             } else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription )
             }
             
         })
@@ -51,10 +51,18 @@ class ViewController: UIViewController {
         attchmetn = try! UNNotificationAttachment(identifier: "my notification", url: imageUrl, options: .none)
         
         let notif = UNMutableNotificationContent()
+        
+        
+        notif.categoryIdentifier = "myNotificationCategory"
+            
+        
+        
         notif.title = "New Notification"
         notif.subtitle = "There are great!"
         notif.body = "The new notification in iOS 10 is what I always dreamed"
         notif.attachments = [attchmetn]
+        
+        
         
         
         let notifTrigger = UNTimeIntervalNotificationTrigger(timeInterval: inSecond, repeats: false)
